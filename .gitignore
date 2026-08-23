@@ -1,0 +1,23 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+
+# Ingested corpora and indexes (rebuildable via `devatlas.cli ingest`)
+data/anchors/
+data/chunks/
+qdrant_storage/
+
+# OS
+.DS_Store

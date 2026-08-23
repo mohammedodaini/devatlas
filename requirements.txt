@@ -1,0 +1,15 @@
+# Core (verified in build sandbox)
+pydantic>=2.7
+tree-sitter>=0.23
+tree-sitter-python>=0.23
+qdrant-client>=1.12          # Query API + named vectors + sparse
+langgraph>=1.0
+
+# API-backed (require keys at runtime)
+openai>=1.40                 # Gemini via OpenAI-compatible endpoint
+google-genai>=1.0            # gemini-embedding-001
+voyageai>=0.3                # voyage-code-3
+
+# Evaluation (heavier; install when you reach Part 6)
+ragas>=0.2
+langchain-google-genai>=2.0  # Ragas judge wrapper
