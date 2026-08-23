@@ -1,4 +1,4 @@
-# DevAtlas — LangChain Expert (v1)
+# DevAtlas: LangChain Expert (v1)
 
 Version-aware, source-grounded Q&A over LangChain: docs + source code,
 anchor-version snapshots, hybrid retrieval (Qdrant), LangGraph agent with

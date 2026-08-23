@@ -1,4 +1,4 @@
-# DevAtlas → Dependency Upgrade Copilot — Design
+# DevAtlas → Dependency Upgrade Copilot: Design
 
 **Date:** 2026-08-06
 **Status:** Approved (brainstorming), pending spec review
@@ -10,7 +10,7 @@ of any Python library.
 
 ## 1. Motivation
 
-DevAtlas's reusable core is not "LangChain Q&A" — it is a rare capability stack:
+DevAtlas's reusable core is not "LangChain Q&A": it is a rare capability stack:
 
 - **Version-aware** knowledge (anchor snapshots + a deterministic transition table).
 - **Source-grounded** answers (tree-sitter parsing of real code, not just docs).
@@ -19,7 +19,7 @@ DevAtlas's reusable core is not "LangChain Q&A" — it is a rare capability stac
 
 The single strongest differentiator is the **`TransitionTable`**, which already computes
 `ADDED / REMOVED / CHANGED / DEPRECATED` transitions between versions with old/new
-signatures and deprecation alternatives — deterministically. A migration guide is
+signatures and deprecation alternatives, deterministically. A migration guide is
 largely a *rendering and enrichment* of that table between two chosen versions.
 
 Therefore this repurpose is mostly **generalize + wrap**, not rebuild.
@@ -40,10 +40,10 @@ Commercial viability is explicitly out of scope.
 
 **In scope (v1):**
 - Python-only libraries (reuse existing `tree-sitter-python` parser).
-- Output: a **general migration guide** between two versions (`v_from → v_to`) —
+- Output: a **general migration guide** between two versions (`v_from → v_to`)
   ranked breaking changes, each with a cited before/after snippet and an upgrade checklist.
 - Web app: FastAPI backend + vanilla HTML/JS single-page UI.
-- Demo strategy: **pre-baked + live** — curated instant guides plus "try your own repo".
+- Demo strategy: **pre-baked + live**, curated instant guides plus "try your own repo".
 
 **Out of scope (v1):**
 - JS/TS or other languages (architected to add later, not built).
@@ -94,8 +94,8 @@ New modules, each with one clear purpose. All speak the existing `schema.py` con
 | `devatlas/migrate/guide.py` | `MigrationGuide` + `BreakingChange` Pydantic models; severity ranking; renders `TransitionTable` → guide skeleton (deterministic, no LLM). | schema, version/difftable |
 | `devatlas/migrate/synthesize.py` | Per-change enrichment: retrieve context, LLM before/after snippet, attach `Citation`. Marks "no example available" when retrieval is insufficient. | retrieve, agent |
 | `devatlas/api/app.py` | FastAPI app: `POST /guides`, `GET /guides/{id}`, `GET /healthz`. | migrate/* |
-| `devatlas/api/jobs.py` | In-memory async job store + background runner with explicit state machine. | — |
-| `web/index.html` (+ inline JS/CSS) | Single-page UI: form → live progress → rendered guide. | — |
+| `devatlas/api/jobs.py` | In-memory async job store + background runner with explicit state machine. |: |
+| `web/index.html` (+ inline JS/CSS) | Single-page UI: form → live progress → rendered guide. |: |
 
 Reused as-is: `Citation`, `SymbolTransition`, `DeprecationInfo`, `Chunk`, `SymbolRecord`,
 the retriever, the agent's Gemini node plumbing.
@@ -143,10 +143,10 @@ Each state carries a human-readable `progress` string for the UI.
 ## 6. Error handling & trust
 
 - **Deterministic table is authoritative.** Every `BreakingChange` originates from a
-  `SymbolTransition` computed from source — never an LLM claim. The LLM writes only the
+  `SymbolTransition` computed from source: never an LLM claim. The LLM writes only the
   illustrative snippet, each carrying a `Citation` (GitHub blob URL + verbatim quote).
 - **Insufficient-context honesty.** If retrieval can't ground a snippet, the change still
-  appears (from the table) with `example_available = False` — mirroring the existing
+  appears (from the table) with `example_available = False`, mirroring the existing
   `insufficient_context` flag. No hallucinated examples.
 - **Explicit job failure states** with human-readable errors (tag not found, private/blocked
   repo, repo too large, timeout). No silent failures.
