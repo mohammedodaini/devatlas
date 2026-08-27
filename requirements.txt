@@ -13,3 +13,4 @@ voyageai>=0.3                # voyage-code-3
 # Evaluation (heavier; install when you reach Part 6)
 ragas>=0.2
 langchain-google-genai>=2.0  # Ragas judge wrapper
+pytest>=8.0
